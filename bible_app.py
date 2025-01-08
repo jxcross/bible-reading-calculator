@@ -28,10 +28,14 @@ def calculate_chapters_read(start_date, target_date):
     if isinstance(start_date, date):
         start_date = datetime.combine(start_date, datetime.min.time())
     
+    # 같은 날짜라면 아직 읽기 전이므로 0 반환
+    if start_date.date() == target_date.date():
+        return 0
+    
     total_chapters = 0
     current_date = start_date
     
-    while current_date <= target_date:
+    while current_date < target_date:  # <= 대신 < 사용
         # 일요일(6)이면 5장, 그 외에는 3장
         if current_date.weekday() == 6:
             total_chapters += 5
